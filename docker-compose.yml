@@ -15,4 +15,4 @@ services:
       - 8000:8000
     command: "npm run dev"
     volumes:
-      - ./public:/home/restify/si-despar/public
+      - ./public:/home/restify/danspro-be-test/public
