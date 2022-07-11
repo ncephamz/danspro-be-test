@@ -57,51 +57,7 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-const authorization = (...roles) => {
-  return function (req, res, next) {
-    if (!roles.includes(req.role.id)) {
-      const result = { err: new ForbiddenError(responseMessages.ROLE[403]) };
-      return wrapper.response(res, FAIL, result, result.err.message);
-    }
-    next();
-  };
-};
-
-const verifyTokenVerificationAccount = async (req, res, next) => {
-  const result = {
-    err: null,
-    data: null
-  };
-
-  const token = req.query.token ? req.query.token : null;
-  if (!token) {
-    result.err = new ForbiddenError(responseMessages.TOKEN[403]);
-    return wrapper.response(res, FAIL, result, responseMessages.TOKEN[403], ERROR.FORBIDDEN);
-  }
-
-  try {
-    const decodedToken = await jwt.verify(token, secretKey.jwt);
-
-    req.id = decodedToken.id;
-    if (decodedToken.role) {
-      req.role = decodedToken.role;
-    }
-
-    next();
-  } catch (error) {
-    if (error instanceof jwt.TokenExpiredError) {
-      result.err = new UnauthorizedError(responseMessages.TOKEN[401]);
-      return wrapper.response(res, FAIL, result, responseMessages.TOKEN[401], ERROR.UNAUTHORIZED);
-    }
-
-    result.err = new UnauthorizedError(responseMessages.TOKEN[400]);
-    return wrapper.response(res, FAIL, result, responseMessages.TOKEN[400], ERROR.UNAUTHORIZED);
-  }
-};
-
 module.exports = {
   generateToken,
   verifyToken,
-  authorization,
-  verifyTokenVerificationAccount
 };
