@@ -1,0 +1,18 @@
+version: "3.3"
+
+networks:
+  default:
+    external:
+      name:
+        network_danspro_be_test
+
+services:
+  api:
+    container_name: api_danspro_be_test
+    build: .
+    env_file: .env.container
+    ports:
+      - 8000:8000
+    command: "npm run dev"
+    volumes:
+      - ./public:/home/restify/si-despar/public

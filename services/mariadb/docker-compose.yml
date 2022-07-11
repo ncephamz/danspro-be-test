@@ -1,0 +1,24 @@
+version: '3.3'
+
+networks:
+  default:
+    external:
+      name:
+        network_danspro_be_test
+        
+services:
+  danspro-db:
+    image: mariadb
+    container_name: mariadb_danspro_be_test
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'danspro_be_test_db'
+      MYSQL_USER: 'danspro_be_test_user'
+      MYSQL_PASSWORD: '3e80e8f7-a147-4677-808b-155c9e311edc'
+      MYSQL_ROOT_PASSWORD: '09d3eb6c-988f-455e-a5f8-324a287c59bb'
+    volumes:
+      - ./mariadb-data:/var/lib/mariadb
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'

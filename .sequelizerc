@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('./bin/helpers/databases/mariadb', 'config.js'),
+  'models-path': path.resolve('./bin/helpers/databases/mariadb', 'models'),
+  'seeders-path': path.resolve('./bin/helpers/databases/mariadb', 'seeders'),
+  'migrations-path': path.resolve('./bin/helpers/databases/mariadb', 'migrations')
+};
