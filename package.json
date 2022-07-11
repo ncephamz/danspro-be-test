@@ -20,6 +20,7 @@
     "reset:db": "npm run migrate:undo:all && npm run migrate && npm run seed"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "confidence": "^4.0.2",
     "crypto": "^1.0.1",
     "dotenv": "^6.1.0",

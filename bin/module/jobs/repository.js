@@ -1,49 +1,14 @@
-const models = require('../../helpers/databases/mariadb/models');
 const wrapper = require('../../helpers/utils/wrapper');
+const Axios = require('../../helpers/utils/axios');
 
 class Repository {
   constructor() {
-    this.models = models.init();
-    this.sequelize = this.models.sequelize;
+    this.axios = new Axios();
   }
 
-  async findJobs(page = 1, limit = 10, jobType, location, description) {
+  async findJobs(url) {
     try {
-      let query = {
-        limit,
-        offset: Number((page - 1) * limit),
-        where: {}
-      };
-
-      if (jobType) {
-        query.where.type = jobType;
-      }
-
-      if (location) {
-        query.where.location = this.sequelize.where(this.sequelize.fn('LOWER', this.sequelize.col('location')), 'LIKE', `%${location}%`);
-      }
-
-      if (description) {
-        query.where.description = this.sequelize.where(this.sequelize.fn('LOWER', this.sequelize.col('description')), 'LIKE', `%${description}%`);
-      }
-
-      return wrapper.data(
-        await this.models.Jobs.findAndCountAll(query)
-      );
-    } catch (error) {
-      return wrapper.error(error);
-    }
-  }
-
-  async getJob(id){
-    try {
-      return wrapper.data(
-        await this.models.Jobs.findOne({
-          where: {
-            id
-          }
-        })
-      );
+      return wrapper.data(await this.axios.get(url));
     } catch (error) {
       return wrapper.error(error);
     }

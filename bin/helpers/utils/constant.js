@@ -34,9 +34,15 @@ const jobTypes = {
   fullTime: 'Full Time'
 };
 
+const baseUrlSourceData = { 
+  ALL: 'http://dev3.dansmultipro.co.id/api/recruitment/positions.json',
+  DETAIL: 'http://dev3.dansmultipro.co.id/api/recruitment/positions/'
+};
+
 module.exports = {
   responseMessages,
   general,
   tableNames,
-  jobTypes
+  jobTypes,
+  baseUrlSourceData
 };
